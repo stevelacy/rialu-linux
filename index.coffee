@@ -1,5 +1,5 @@
-config = require "./config"
-sockets = require "./sockets"
+config = require "./lib/config"
+sockets = require "./lib/sockets"
 
 
-console.log config.nickname
+console.log "#{config.nickname} Starting"
