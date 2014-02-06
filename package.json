@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "node start.js"
+  },
+  "dependencies": {
+    "socket.io-client": "~0.9.16",
+    "coffee-script": "~1.7.1",
+    "wifi-location": "0.0.1",
+    "async": "~0.2.10"
+  }
+}

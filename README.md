@@ -1,4 +1,2 @@
-rialu-linux
-===========
-
-Rialú Linux application
+#Rialú
+### Linux application
