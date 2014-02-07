@@ -1,3 +1,4 @@
+path = require "path"
 io  = require "socket.io-client"
 async = require  "async"
 setKeyboard = require "./keyboard"
@@ -5,6 +6,8 @@ keyboardPanic = require "./keyboardPanic"
 myLoc = require "./location"
 config = require "./config"
 {exec} = require "child_process"
+
+assets = path.join __dirname, "../assets"
 
 client = io.connect config.server,
   'force new connection': true
@@ -49,7 +52,7 @@ client.on 'panic', (panic) ->
   console.log "panic #{panic.panic}"
   if panicNum == 0
     panicNum = 1
-    exec "gnome-screensaver-command --lock && amixer set Master 100 && cvlc #{__dirname}/assets/alarm.mp3"
+    exec "gnome-screensaver-command --lock && amixer set Master 100 && cvlc #{assets}/alarm.mp3"
     keyboardPanic()
     sendReply "Panic Started!","#{config.nickname}"
   else
@@ -60,7 +63,7 @@ client.on 'panic', (panic) ->
 client.on 'horn', (horn) ->
   return true unless horn.client == config.nickname
   console.log "horn #{horn.horn}"
-  exec "amixer set Master 100 && cvlc #{__dirname}/assets/horn.mp3"
+  exec "amixer set Master 100 && cvlc #{assets}/horn.mp3"
   sendReply "Horn", "#{config.nickname}"
 
 client.on 'command', (command) ->
@@ -85,6 +88,7 @@ client.on 'keyboard', (keyboard) ->
   , (err) ->
     console.log err if err?
     console.log "done"
+    
 client.on 'webcam', (webcam) ->
   return true unless webcam.client == config.nickname
   console.log "webcam #{JSON.stringify webcam.photo}"
