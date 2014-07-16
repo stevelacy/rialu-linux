@@ -32,14 +32,14 @@ client.on 'connect', (socket) ->
   client.on 'disconnect', (dis) ->
     check = 0
     console.log "disconnected from server!"
-  
+
 client.on 'auth', (auth) ->
   console.log "Twitter authorized #{auth.auth}"
 
 client.on 'volume', (volume) ->
   return true unless volume.client == config.nickname
   console.log "volume #{volume.volume}"
-  exec "amixer set Master #{volume.volume}"
+  exec "amixer -D pulse set Master #{volume.volume}%"
   #sendReply "Volume: #{volume.volume}", "#{config.nickname}" #Optional for Verbose emitting
 
 client.on 'lock', (lock) ->
@@ -88,8 +88,8 @@ client.on 'keyboard', (keyboard) ->
   , (err) ->
     console.log err if err?
     console.log "done"
-    
+
 client.on 'webcam', (webcam) ->
   return true unless webcam.client == config.nickname
   console.log "webcam #{JSON.stringify webcam.photo}"
-    
+
